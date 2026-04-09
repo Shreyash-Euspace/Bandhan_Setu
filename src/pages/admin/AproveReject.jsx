@@ -206,9 +206,17 @@ export default function ApproveReject() {
                     onClick={() => setSelected(isSelected ? null : req)}
                     className={`group flex items-center gap-4 px-6 py-4 cursor-pointer transition-all duration-200 ${isSelected ? "bg-red-50/50" : "hover:bg-gray-50"}`}
                   >
-                    <div className="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md shrink-0 transition-transform group-hover:scale-105" style={{ background: getAvatarColor(req.id) }}>
-                      {getInitials(req.name)}
-                    </div>
+                    {req.photo_url ? (
+  <img
+    src={`${import.meta.env.VITE_BASE_URL}${req.photo_url}`}
+    alt={req.name}
+    className="w-11 h-11 rounded-full object-cover shadow-md shrink-0 transition-transform group-hover:scale-105"
+  />
+) : (
+  <div className="w-11 h-11 rounded-full flex items-center justify-center text-white font-bold text-sm shadow-md shrink-0 transition-transform group-hover:scale-105" style={{ background: getAvatarColor(req.id) }}>
+    {getInitials(req.name)}
+  </div>
+)}
                     <div className="flex-1 min-w-0">
                       <p className="font-semibold text-gray-800 text-sm truncate">{req.name}</p>
                       <p className="text-xs text-gray-400 truncate">{req.email} · {req.mobile}</p>
@@ -253,9 +261,17 @@ export default function ApproveReject() {
             </div>
 
             <div className="px-6 py-6 text-center border-b border-gray-100">
-              <div className="w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 shadow-lg" style={{ background: getAvatarColor(selected.id) }}>
-                {getInitials(selected.name)}
-              </div>
+             {selected.photo_url ? (
+  <img
+    src={`${import.meta.env.VITE_BASE_URL}${selected.photo_url}`}
+    alt={selected.name}
+    className="w-20 h-20 rounded-full object-cover mx-auto mb-4 shadow-lg"
+  />
+) : (
+  <div className="w-20 h-20 rounded-full flex items-center justify-center text-white font-bold text-2xl mx-auto mb-4 shadow-lg" style={{ background: getAvatarColor(selected.id) }}>
+    {getInitials(selected.name)}
+  </div>
+)}
               <h4 className="font-bold text-gray-800 text-lg">{selected.name}</h4>
               <p className="text-gray-500 text-sm mt-1">{selected.email}</p>
               {(() => { const st = STATUS_CONFIG[selected.status]; return (
